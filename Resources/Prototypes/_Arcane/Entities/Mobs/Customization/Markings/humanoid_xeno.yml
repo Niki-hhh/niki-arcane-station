@@ -64,9 +64,9 @@
 # Chest overlays
 
 - type: marking
-  id: HumanoidXenoChestShine
-  bodyPart: Chest
-  markingCategory: Chest
+  id: HumanoidXenoHeadShine
+  bodyPart: Head
+  markingCategory: HeadTop
   speciesRestriction: [HumanoidXeno]
   sprites:
   - sprite: _Arcane/Mobs/Species/HumanoidXeno/parts.rsi

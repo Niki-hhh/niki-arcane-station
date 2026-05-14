@@ -15,9 +15,9 @@
     minSaturation: 40
   - type: Vocal
     sounds:
-      Male: Xenomorph
-      Female: Xenomorph
-      Unsexed: Xenomorph
+      Male: XenoHumanoid
+      Female: XenoHumanoid
+      Unsexed: XenoHumanoid
   - type: PressureImmunity
   - type: TypingIndicator
     proto: alien
@@ -31,7 +31,7 @@
         Heat: 3
   - type: Speech
     speechVerb: LargeMob
-    allowedEmotes: [ 'Hisses', 'Roars', 'Rumbles', 'Growl' ]
+    allowedEmotes: [ 'Hisses', 'Roars', 'Rumbles', 'Growl', 'Scream' ]
   - type: MeleeWeapon
     hidden: true
     soundHit:
@@ -46,10 +46,8 @@
         Caustic: 1
   - type: LizardAccent
   - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: FluorosulfuricAcidHumanoidXeno
-        Quantity: 300
+    bloodReagent: FluorosulfuricAcidHumanoidXeno
+    bloodMaxVolume: 300
   - type: ProtectedFromStepTriggers
   - type: Damageable
     damageContainer: Biological
@@ -57,50 +55,14 @@
   - type: NightVision
     color: "#44944A"
     toggleAction: ToggleNightVision
-  - type: DamageVisuals
-    damageOverlayGroups:
-      Brute:
-        sprite: Mobs/Effects/brute_damage.rsi
-        color: "#44944A"
+# Старая система оффов. Здесь испольуется WoundableVisuals, которая не требует оффов и работает на всех частях тела. Оверлэй пропиывюатся в самих огранах.
+#  - type: DamageVisuals
+#    damageOverlayGroups:
+#      Brute:
+#        sprite: Mobs/Effects/brute_damage.rsi
+#        color: "#44944A"
   - type: Stamina
-    baseCritThreshold: 125
-  - type: Sprite
-    layers:
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - shader: StencilClear
-      sprite: _Arcane/Mobs/Species/HumanoidXeno/parts.rsi
-      state: torso_m
-    - map: ["enum.HumanoidVisualLayers.LFoot"]
-    - map: ["enum.HumanoidVisualLayers.RFoot"]
-    - map: ["jumpsuit"]
-    - map: ["enum.HumanoidVisualLayers.LHand"]
-    - map: ["enum.HumanoidVisualLayers.RHand"]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "outerClothing" ]
-    - map: [ "belt" ]
-    - map: [ "id" ]
-    - map: [ "neck" ]
-    - map: [ "back" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
-    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
-      color: "#ffffff"
-      sprite: Objects/Misc/handcuffs.rsi
-      state: body-overlay-2
-      visible: false
+    critThreshold: 125
   - type: Hunger
     baseDecayRate: 0.08
   - type: Thirst
@@ -170,6 +132,8 @@
             state: shoes
   - type: HumanoidAppearance
     species: HumanoidXeno
+    permanentlyHidden:
+    - Eyes
   - type: LanguageKnowledge
     speaks:
     - TauCetiBasic
@@ -181,6 +145,10 @@
     - HumanoidXenomind
   - type: Tag
     tags:
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
     - HumanoidXeno
 
 - type: entity
