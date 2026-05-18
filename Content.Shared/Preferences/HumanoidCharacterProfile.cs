@@ -58,6 +58,7 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
 using Content.Goobstation.Common.Barks; // Goob Station - Barks
+using Content.Shared._Arcane.ERP; // Arcane-edit
 using Content.Shared.Traits;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
@@ -154,6 +155,11 @@ namespace Content.Shared.Preferences
         [DataField]
         public string NsfwTagsFlavorText { get; set; } = string.Empty;
         // Orion-End
+
+        // Arcane-Start
+        [DataField]
+        public ErpPreference ErpPreference { get; set; } = ErpPreference.Ask;
+        // Arcane-End
 
         /// <summary>
         /// Associated <see cref="SpeciesPrototype"/> for this profile.
@@ -327,6 +333,7 @@ namespace Content.Shared.Preferences
                 new Dictionary<string, RoleLoadout>(other.Loadouts),
                 other.BarkVoice) // Goob Station - Barks
         {
+            ErpPreference = other.ErpPreference; // Arcane-edit
         }
 
         /// <summary>
@@ -539,6 +546,13 @@ namespace Content.Shared.Preferences
         }
         // Goob Station - Barks End
 
+        // Arcane-Start
+        public HumanoidCharacterProfile WithErpPreference(ErpPreference preference)
+        {
+            return new(this) { ErpPreference = preference };
+        }
+        // Arcane-End
+
         public HumanoidCharacterProfile WithJobPriorities(IEnumerable<KeyValuePair<ProtoId<JobPrototype>, JobPriority>> jobPriorities)
         {
             var dictionary = new Dictionary<ProtoId<JobPrototype>, JobPriority>(jobPriorities);
@@ -740,6 +754,7 @@ namespace Content.Shared.Preferences
                 Sex.Male => Sex.Male,
                 Sex.Female => Sex.Female,
                 Sex.Unsexed => Sex.Unsexed,
+                Sex.Futanari => Sex.Futanari, // Arcane-edit
                 _ => Sex.Male // Invalid enum values.
             };
 
