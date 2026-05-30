@@ -172,7 +172,6 @@
   - /Audio/_Arcane/Interactions/kiss4.ogg
   - /Audio/_Arcane/Interactions/kiss5.ogg
   - /Audio/_Arcane/Interactions/kiss3.ogg
-  sounds:
   messages:
   - страстно целует губы $target!
   - нежно целует $target.

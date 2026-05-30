@@ -10,12 +10,14 @@
   id: Penis
   name: Член
 
-- id: Neck
+- type: panelInteractionCategory
+  id: Neck
   name: Шея
 
 - type: panelInteractionCategory
   id: Pussy
   name: Вагина
+
 
 - type: panelInteractionCategory
   id: Face
@@ -34,7 +36,7 @@
   name: Дружба
 
 - type: panelInteractionCategory
-  id: Tale
+  id: Tail
   name: Хвост
 
 - type: panelInteractionCategory
