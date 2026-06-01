@@ -27,8 +27,10 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
         [ErpOrganSlots.Butt]      = "erp_butt",
     };
 
-    // Populated as per-organ RSI assets become available.
-    private static readonly Dictionary<string, string> OrganRsiPath = new();
+    private static readonly Dictionary<string, string> OrganRsiPath = new()
+    {
+        [ErpOrganSlots.Penis] = "/Textures/_Arcane/ERP/Mobs/penis_onmob.rsi",
+    };
 
     private const string BreastsRsiBase = "/Textures/_Arcane/ERP/Mobs/Breasts/";
     private const string BreastsRsiFallback = BreastsRsiBase + "human.rsi";
@@ -208,23 +210,15 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
 
     private static string BuildStateName(string slotId, ErpOrganConfig cfg, string? species = null)
     {
-        switch (slotId)
+        return slotId switch
         {
-            case ErpOrganSlots.Breasts:
-                if (species == "HumanoidXeno")
-                    return cfg.Size switch { 1 => "a", 2 => "b", _ => "c" };
-                return cfg.Size switch { 1 => "aa", 2 => "b", 3 => "c", _ => "d" };
-            case ErpOrganSlots.Butt:
-                return $"butt_pair_{Math.Clamp(cfg.Size, 1, 5)}_0_FRONT";
-            case ErpOrganSlots.Testicles:
-                return "testicles_single_2_0_FRONT";
-            case ErpOrganSlots.Anus:
-                var aVariant = cfg.Variant is "" or "human" ? "donut" : cfg.Variant;
-                return $"anus_{aVariant}_3_0_FRONT";
-            case ErpOrganSlots.Vagina:
-                return $"vagina_{cfg.Variant}_1_0_FRONT";
-            default:
-                return $"{slotId}_{cfg.Variant}_3_0_FRONT";
-        }
+            ErpOrganSlots.Breasts   => species == "HumanoidXeno"
+                                         ? cfg.Size switch { 1 => "a", 2 => "b", _ => "c" }
+                                         : cfg.Size switch { 1 => "aa", 2 => "b", 3 => "c", _ => "d" },
+            ErpOrganSlots.Butt      => $"{Math.Clamp(cfg.Size, 1, 5)}",
+            ErpOrganSlots.Testicles => "single",
+            ErpOrganSlots.Anus      => cfg.Variant is "" or "human" ? "donut" : cfg.Variant,
+            _                       => cfg.Variant,
+        };
     }
 }
