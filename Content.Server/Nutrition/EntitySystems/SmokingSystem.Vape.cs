@@ -57,9 +57,10 @@ namespace Content.Server.Nutrition.EntitySystems
             var exploded = false;
 
             if (!args.CanReach
-                || !_solutionContainerSystem.TryGetRefillableSolution(entity.Owner, out _, out var solution)
-                || !HasComp<BloodstreamComponent>(args.Target)
-                || _ingestion.HasMouthAvailable(args.Target.Value, args.User)
+                || !_solutionContainerSystem.TryGetRefillableSolution(uid, out _, out var solution) //arcane-station
+                || args.Target == null //arcane-station
+                || !HasComp<BloodstreamComponent>(args.Target.Value) //arcane-station
+                || (args.Target != args.User && _ingestion.HasMouthAvailable(args.Target.Value, args.User)) //arcane-station
                 )
             {
                 return;
