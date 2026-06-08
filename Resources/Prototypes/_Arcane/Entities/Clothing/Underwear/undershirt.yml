@@ -1,0 +1,26 @@
+- type: entity
+  parent: ClothingBraBase
+  id: ClothingUndershirtWarmBra
+  name: warm bra
+  description: Warm bra with fur lining.
+  components:
+  - type: Sprite
+    sprite: _Arcane/Clothing/Underwear/undershirt/warm_bra.rsi
+
+- type: entity
+  parent: ClothingBraBase
+  id: ClothingUndershirtCowSwimsuit
+  name: cow swimsuit
+  description: Sexy cow spot print swimsuit.
+  components:
+  - type: Sprite
+    sprite: _Arcane/Clothing/Underwear/undershirt/CowSwimsuit.rsi
+
+- type: entity
+  parent: ClothingBraBase
+  id: ClothingUndershirtNippleStickers
+  name: nipple strickers
+  description: Stickers for your most percerse pleasures.
+  components:
+  - type: Sprite
+    sprite: _Arcane/Clothing/Underwear/undershirt/nipple_stickers.rsi
