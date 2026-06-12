@@ -22,6 +22,7 @@
   parent: [BaseMob, MobDamageable, MobCombat, MobAtmosExposed, MobFlammable]
   abstract: true
   components:
+    - type: TTS # Arcane
     - type: ContentEye
     - type: CameraRecoil
     - type: Reactive
