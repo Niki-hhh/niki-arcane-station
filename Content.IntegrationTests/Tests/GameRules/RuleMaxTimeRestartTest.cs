@@ -61,9 +61,8 @@ namespace Content.IntegrationTests.Tests.GameRules
             });
 
             // MisandryBox/JobObjectiveRule - either this or fucking every preset.yml.
-           Assert.That(server.EntMan.Count<GameRuleComponent>(), Is.GreaterThanOrEqualTo(1));
-           Assert.That(server.EntMan.Count<ActiveGameRuleComponent>(), Is.GreaterThanOrEqualTo(1));
-           Assert.That(entityManager.HasComponent<ActiveGameRuleComponent>(maxTime.Owner), Is.True);
+            Assert.That(server.EntMan.Count<GameRuleComponent>(), Is.EqualTo(2));
+            Assert.That(server.EntMan.Count<ActiveGameRuleComponent>(), Is.EqualTo(2));
 
             await server.WaitAssertion(() =>
             {
