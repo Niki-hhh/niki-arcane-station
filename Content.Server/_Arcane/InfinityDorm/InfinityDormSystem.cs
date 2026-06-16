@@ -21,12 +21,17 @@
 // SOFTWARE.
 
 using System.Numerics;
+using Content.Goobstation.Common.Effects;
 using Content.Server.AlertLevel;
+using Content.Server.Chat.Managers;
+using Content.Server.Chat.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared._Arcane.CCVars;
 using Content.Shared._Arcane.InfinityDorm;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
+using Content.Shared.Chat;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Robust.Shared.Configuration;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
@@ -44,6 +49,8 @@ public sealed class InfinityDormSystem : EntitySystem
     [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly AccessReaderSystem _accessReader = default!;
+    [Dependency] private readonly SparksSystem _sparks = default!;
+    [Dependency] private readonly ChatSystem _chat = default!;
 
     private int _maxUserDorms = 0;
 
@@ -79,6 +86,8 @@ public sealed class InfinityDormSystem : EntitySystem
         var accessReader = EnsureComp<AccessReaderComponent>(uid);
         _accessReader.LogAccess((uid, accessReader), args.Actor);
 
+        _sparks.DoSparks(Transform(args.Actor).Coordinates, 3, 10);
+
         TeleportToDorm(args.Actor, args.Number);
     }
 
@@ -101,7 +110,10 @@ public sealed class InfinityDormSystem : EntitySystem
             return true;
 
         if (!CheckUserDormsLimit(creator))
+        {
+            _chat.TrySendInGameICMessage(teleporter, Loc.GetString("infinity-dorm-warning-dorms-limit"), InGameICChatType.Speak, false);
             return false;
+        }
 
         if (!_proto.TryIndex<InfinityDormPrototype>(room, out var dormProto))
             return false;

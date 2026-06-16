@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Content.Goobstation.Common.Effects;
 using Content.Shared.Body.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands;
@@ -36,6 +37,7 @@ public sealed class SharedInfinityDormSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly SharedBodySystem _body = default!;
+    [Dependency] private readonly SparksSystem _sparks = default!;
 
     private static readonly ProtoId<TagPrototype> InfiniteDormItemTag = "InfiniteDormItem";
     private static readonly ProtoId<TagPrototype> InfiniteDormItemBlockTag = "InfiniteDormItemBlock";
@@ -76,6 +78,8 @@ public sealed class SharedInfinityDormSystem : EntitySystem
 
         RemoveInfiniteDormTags(args.User);
         RemComp<InfinityDormVisitorComponent>(args.User);
+
+        _sparks.DoSparks(Transform(args.User).Coordinates, 3, 10);
 
         var teleporterTransform = Transform(dormComp.ConnectedTeleporter);
         _transform.SetMapCoordinates(args.User, _transform.GetMapCoordinates(teleporterTransform));
