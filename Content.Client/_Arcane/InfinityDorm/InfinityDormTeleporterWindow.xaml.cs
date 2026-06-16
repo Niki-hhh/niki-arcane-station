@@ -60,6 +60,13 @@ public sealed partial class InfinityDormTeleporterWindow : FancyWindow
         SetRoomsAvailable(0);
     }
 
+    public override void Close()
+    {
+        base.Close();
+
+        _proto.PrototypesReloaded -= OnProtoReload;
+    }
+
     public void SetRoomsAvailable(int available)
     {
         RoomsAvailable.Text = $"{available}/{_cfg.GetCVar(ACCVars.MaxUserInfinityDorms)}";
