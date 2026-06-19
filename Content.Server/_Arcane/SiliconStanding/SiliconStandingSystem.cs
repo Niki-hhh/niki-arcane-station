@@ -20,7 +20,7 @@ public sealed class SiliconStandingSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<SiliconRestingComponent, ComponentStartup>(OnRestingStartup);
-        SubscribeLocalEvent<SiliconRestingComponent, ComponentShutdown>(OnRestingShutdown);
+        SubscribeLocalEvent<SiliconRestingComponent, ComponentRemove>(OnRestingRemove);
     }
 
     private void OnRestingStartup(Entity<SiliconRestingComponent> ent, ref ComponentStartup args)
@@ -29,7 +29,7 @@ public sealed class SiliconStandingSystem : EntitySystem
         PlayRestSound(ent);
     }
 
-    private void OnRestingShutdown(Entity<SiliconRestingComponent> ent, ref ComponentShutdown args)
+    private void OnRestingRemove(Entity<SiliconRestingComponent> ent, ref ComponentRemove args)
     {
         _actionBlocker.UpdateCanMove(ent);
         PlayRestSound(ent);

@@ -1,4 +1,4 @@
-﻿using Content.Shared._Arcane.SiliconStanding;
+using Content.Shared._Arcane.SiliconStanding;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;
@@ -13,31 +13,23 @@ public sealed class SiliconRestingVisualizerSystem : EntitySystem
     [Dependency] private readonly SpriteSystem _sprite = default!;
     [Dependency] private readonly SharedSiliconStandingSystem _standing = default!;
 
-    private ISawmill _log = default!;
-
     public override void Initialize()
     {
         base.Initialize();
 
-        _log = Logger.GetSawmill("silicon.resting");
-
         SubscribeLocalEvent<SiliconRestingComponent, ComponentStartup>(OnRestingStartup);
-        SubscribeLocalEvent<SiliconRestingComponent, ComponentShutdown>(OnRestingShutdown);
+        SubscribeLocalEvent<SiliconRestingComponent, ComponentRemove>(OnRestingRemove);
     }
 
     private void OnRestingStartup(Entity<SiliconRestingComponent> ent, ref ComponentStartup args)
     {
-        _log.Debug($"OnRestingStartup: {ToPrettyString(ent.Owner)}");
         _actionBlocker.UpdateCanMove(ent.Owner);
         Refresh(ent.Owner, overrideResting: true);
     }
 
-    private void OnRestingShutdown(Entity<SiliconRestingComponent> ent, ref ComponentShutdown args)
+    private void OnRestingRemove(Entity<SiliconRestingComponent> ent, ref ComponentRemove args)
     {
-        _log.Debug($"OnRestingShutdown: {ToPrettyString(ent.Owner)}");
         _actionBlocker.UpdateCanMove(ent.Owner);
-        // ComponentShutdown fires before the component is actually removed,
-        // so HasComp still returns true here. Override explicitly.
         Refresh(ent.Owner, overrideResting: false);
     }
 
@@ -49,9 +41,7 @@ public sealed class SiliconRestingVisualizerSystem : EntitySystem
         if (!TryComp<BorgChassisComponent>(uid, out var borg))
             return;
 
-        var isResting = overrideResting ?? _standing.GetEffectiveResting(uid);
-
-        _log.Debug($"Refresh: {ToPrettyString(uid)} isResting={isResting} override={overrideResting}");
+        var isResting = overrideResting ?? GetRestingVisualState(uid);
 
         UpdateBorgBodyState((uid, sprite), isResting);
 
@@ -71,19 +61,19 @@ public sealed class SiliconRestingVisualizerSystem : EntitySystem
             return;
 
         if (!TryComp<SiliconRestingVisualsComponent>(ent, out var visuals))
-        {
-            _log.Debug($"UpdateBorgBodyState: no SiliconRestingVisualsComponent on {ToPrettyString(ent.Owner)}");
             return;
-        }
 
         if (!_sprite.LayerMapTryGet(ent, BorgVisualLayers.Body, out var layer, false))
-        {
-            _log.Debug($"UpdateBorgBodyState: no Body layer on {ToPrettyString(ent.Owner)}");
             return;
-        }
 
         var state = isResting ? visuals.RestBodyState : visuals.NormalBodyState;
-        _log.Debug($"UpdateBorgBodyState: {ToPrettyString(ent.Owner)} state={state} (rest={visuals.RestBodyState} normal={visuals.NormalBodyState})");
         _sprite.LayerSetRsiState(ent, layer, state);
+    }
+
+    private bool GetRestingVisualState(EntityUid uid)
+    {
+        return _appearance.TryGetData<bool>(uid, SiliconStandingVisuals.Resting, out var resting)
+            ? resting
+            : _standing.GetEffectiveResting(uid);
     }
 }

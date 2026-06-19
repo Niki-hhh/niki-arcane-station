@@ -1,4 +1,5 @@
-﻿using Robust.Shared.GameStates;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Arcane.SiliconStanding;
 
@@ -6,11 +7,11 @@ namespace Content.Shared._Arcane.SiliconStanding;
 /// Allows a silicon entity to transition between standing and resting states.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
+[AutoGenerateComponentState]
 public sealed partial class SiliconStandingComponent : Component
 {
-    [DataField]
-    public float LieDownDelay = 1.0f;
+    public static readonly EntProtoId ToggleRestingActionId = "ActionToggleSiliconResting";
 
-    [DataField]
-    public float StandUpDelay = 0.5f;
+    [DataField, AutoNetworkedField]
+    public EntityUid? ToggleRestingAction;
 }
