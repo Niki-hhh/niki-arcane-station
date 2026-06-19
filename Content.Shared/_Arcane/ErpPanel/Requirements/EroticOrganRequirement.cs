@@ -1,4 +1,5 @@
 using Content.Shared._Arcane.ERP.Organs;
+using Content.Shared._Arcane.ERP.OrgansAppearance;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Robust.Shared.Serialization;
@@ -42,7 +43,11 @@ public sealed partial class EroticOrganRequirement : ErpRequirement
                 continue;
 
             if (RequireVisible)
-                return organ.Comp1.Visible;
+            {
+                // CoveredSlots is networked; Visible is server-only. Use CoveredSlots as the authoritative source.
+                return !entityManager.TryGetComponent<ErpOrganVisualsComponent>(uid, out var visuals)
+                    || !visuals.CoveredSlots.Contains(Organ);
+            }
             else
                 return true;
         }

@@ -899,6 +899,7 @@ namespace Content.Client.Lobby.UI
                 if (Profile == null || CharacterSlot == null)
                     return;
                 _erpOrganPrefs = prefs;
+                _erpOrganPrefsDirty = true; // Arcane-edit
                 IsDirty = true;
                 _entManager.System<ErpOrganVisualsSystem>().RefreshPreview(PreviewDummy, prefs);
             };
@@ -914,6 +915,7 @@ namespace Content.Client.Lobby.UI
         }
 
         private ErpOrganPreferences _erpOrganPrefs = ErpOrganPreferences.Default();
+        private bool _erpOrganPrefsDirty; // Arcane-edit
         // Arcane-End
 
         // Orion-Start
@@ -1367,6 +1369,12 @@ namespace Content.Client.Lobby.UI
 
         private void SetDirty()
         {
+            if (_erpOrganPrefsDirty) // Arcane-edit: ERP-only changes must keep dirty regardless of profile match
+            {
+                IsDirty = true;
+                return;
+            }
+
             // If it equals default then reset the button.
             if (Profile == null || _preferencesManager.Preferences?.SelectedCharacter.MemberwiseEquals(Profile) == true)
             {
@@ -1432,6 +1440,7 @@ namespace Content.Client.Lobby.UI
             Profile = profile?.Clone();
             CharacterSlot = slot;
             IsDirty = false;
+            _erpOrganPrefsDirty = false; // Arcane-edit
             JobOverride = null;
 
             // Arcane-Start
