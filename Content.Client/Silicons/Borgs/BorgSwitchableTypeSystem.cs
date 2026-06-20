@@ -8,7 +8,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Shared._Arcane.SiliconStanding; // Arcane
+using Content.Shared._Arcane.SiliconStanding;
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;
@@ -53,7 +53,7 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         BorgTypePrototype prototype,
         BorgSubtypePrototype subtypePrototype)
     {
-        var visualsConfig = subtypePrototype.Visuals;
+        var visualsConfig = subtypePrototype.Visuals; // Arcane
 
         if (TryComp(entity, out SpriteComponent? sprite))
         {
@@ -69,7 +69,7 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
                 _sprite.LayerSetRsi((entity, sprite), BorgVisualLayers.LightStatus, resource.RSI);
             }
             _sprite.LayerSetRsiState((entity, sprite), BorgVisualLayers.Body, prototype.SpriteBodyState);
-            _sprite.LayerSetRsiState((entity, sprite), BorgVisualLayers.LightStatus,
+            _sprite.LayerSetRsiState((entity, sprite), BorgVisualLayers.LightStatus, // Arcane
                 visualsConfig.ToggleLightState ?? prototype.SpriteToggleLightState);
         }
 
@@ -77,8 +77,8 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         {
             _borgSystem.SetMindStates(
                 (entity.Owner, chassis),
-                visualsConfig.HasMindState ?? prototype.SpriteHasMindState,
-                visualsConfig.NoMindState ?? prototype.SpriteNoMindState);
+                visualsConfig.HasMindState ?? prototype.SpriteHasMindState, // Arcane
+                visualsConfig.NoMindState ?? prototype.SpriteNoMindState); // Arcane
 
             if (TryComp(entity, out AppearanceComponent? appearance))
             {
@@ -99,8 +99,6 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         {
             RemComp<SiliconRestingVisualsComponent>(entity);
         }
-        // Arcane-Edit-End
-
         var movementBodyState = visualsConfig.MovementBodyState ?? prototype.SpriteBodyMovementState;
         if (!visualsConfig.DisableMovementVisuals && movementBodyState is { } movementState)
         {
@@ -120,6 +118,7 @@ public sealed class BorgSwitchableTypeSystem : SharedBorgSwitchableTypeSystem
         {
             RemComp<SpriteMovementComponent>(entity);
         }
+        // Arcane-Edit-End
 
         base.UpdateEntityAppearance(entity, prototype, subtypePrototype);
     }

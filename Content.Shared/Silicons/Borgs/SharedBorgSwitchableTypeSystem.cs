@@ -86,7 +86,7 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
 
         if (!Prototypes.TryIndex(args.Prototype, out _) ||
             !Prototypes.TryIndex(args.Subtype, out var subtypePrototype) ||
-            subtypePrototype.ParentBorgType != args.Prototype)
+            subtypePrototype.ParentBorgType != args.Prototype) // Arcane
             return;
 
         SelectBorgModule(ent, args.Prototype, args.Subtype);

@@ -18,12 +18,12 @@ public sealed class SharedSiliconStandingSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<BorgChassisComponent, ToggleSiliconRestingEvent>(OnToggleAction);
-        SubscribeLocalEvent<BorgChassisComponent, UpdateCanMoveEvent>(OnCanMove);
+        SubscribeLocalEvent<SiliconStandingComponent, ToggleSiliconRestingEvent>(OnToggleAction);
+        SubscribeLocalEvent<SiliconStandingComponent, UpdateCanMoveEvent>(OnCanMove);
         SubscribeLocalEvent<SiliconStandingComponent, ComponentShutdown>(OnStandingShutdown);
     }
 
-    private void OnToggleAction(Entity<BorgChassisComponent> ent, ref ToggleSiliconRestingEvent args)
+    private void OnToggleAction(Entity<SiliconStandingComponent> ent, ref ToggleSiliconRestingEvent args)
     {
         if (!CanToggleResting(ent))
             return;
@@ -32,7 +32,7 @@ public sealed class SharedSiliconStandingSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void OnCanMove(Entity<BorgChassisComponent> ent, ref UpdateCanMoveEvent args)
+    private void OnCanMove(Entity<SiliconStandingComponent> ent, ref UpdateCanMoveEvent args)
     {
         if (IsResting(ent))
             args.Cancel();
@@ -49,14 +49,17 @@ public sealed class SharedSiliconStandingSystem : EntitySystem
 
     public bool CanToggleResting(EntityUid uid)
     {
-        if (!HasComp<SiliconStandingComponent>(uid) ||
-            !HasComp<BorgChassisComponent>(uid) ||
-            !TryComp<BorgSwitchableSubtypeComponent>(uid, out var subtype) ||
-            subtype.BorgSubtype == null ||
-            !_prototype.TryIndex(subtype.BorgSubtype, out var subtypePrototype))
-        {
+        if (!HasComp<SiliconStandingComponent>(uid))
             return false;
-        }
+
+        if (!HasComp<BorgChassisComponent>(uid))
+            return false;
+
+        if (!TryComp<BorgSwitchableSubtypeComponent>(uid, out var subtype) || subtype.BorgSubtype == null)
+            return false;
+
+        if (!_prototype.TryIndex(subtype.BorgSubtype, out var subtypePrototype))
+            return false;
 
         return subtypePrototype.Visuals.RestBodyState != null;
     }

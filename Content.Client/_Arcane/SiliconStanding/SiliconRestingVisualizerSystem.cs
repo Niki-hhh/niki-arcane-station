@@ -42,17 +42,21 @@ public sealed class SiliconRestingVisualizerSystem : EntitySystem
             return;
 
         var isResting = overrideResting ?? GetRestingVisualState(uid);
+        var spriteEnt = (uid, sprite);
 
-        UpdateBorgBodyState((uid, sprite), isResting);
+        UpdateBorgBodyState(spriteEnt, isResting);
 
         if (!_appearance.TryGetData<bool>(uid, BorgVisuals.HasPlayer, out var hasPlayer))
             hasPlayer = false;
 
         var lightVisible = !isResting && (borg.BrainEntity != null || hasPlayer);
-        _sprite.LayerSetVisible((uid, sprite), BorgVisualLayers.Light, lightVisible);
-        if (_sprite.LayerMapTryGet((uid, sprite), BorgVisualLayers.LightStatus, out _, false))
-            _sprite.LayerSetVisible((uid, sprite), BorgVisualLayers.LightStatus, lightVisible);
-        _sprite.LayerSetRsiState((uid, sprite), BorgVisualLayers.Light, hasPlayer ? borg.HasMindState : borg.NoMindState);
+        _sprite.LayerSetVisible(spriteEnt, BorgVisualLayers.Light, lightVisible);
+
+        if (_sprite.LayerMapTryGet(spriteEnt, BorgVisualLayers.LightStatus, out _, false))
+            _sprite.LayerSetVisible(spriteEnt, BorgVisualLayers.LightStatus, lightVisible);
+
+        var lightState = hasPlayer ? borg.HasMindState : borg.NoMindState;
+        _sprite.LayerSetRsiState(spriteEnt, BorgVisualLayers.Light, lightState);
     }
 
     private void UpdateBorgBodyState(Entity<SpriteComponent?> ent, bool isResting)
