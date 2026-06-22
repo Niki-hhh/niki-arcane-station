@@ -101,7 +101,7 @@ public sealed partial class InfinityDormSystem : EntitySystem
         if (_map.TryGetMap(_dormsMapId, out _) || _dormsMapId != MapId.Nullspace)
             return;
 
-        _dormsMapId = Transform(_map.CreateMap()).MapID;
+        _map.CreateMap(out _dormsMapId);
     }
 
     private void SetMaxUserDorms(int value)

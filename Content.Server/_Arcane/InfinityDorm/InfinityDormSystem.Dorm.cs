@@ -32,7 +32,7 @@ public sealed partial class InfinityDormSystem
         dormComp.Number = number;
         dormComp.Creator = creator;
 
-        return true;
+        return IsDormExists(number);
     }
 
     private void TeleportToDorm(EntityUid uid, int number)
