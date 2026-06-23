@@ -1,6 +1,7 @@
 - type: erpOrganVisual
   id: BreastsHuman
   slot: breasts
+  drawOrder: 10
   species: [Human, Dwarf, Felinid]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/human.rsi
   stateMode: SizeIndexed
@@ -9,6 +10,7 @@
 - type: erpOrganVisual
   id: BreastsReptilian
   slot: breasts
+  drawOrder: 10
   species: [Reptilian]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/lizard.rsi
   stateMode: SizeIndexed
@@ -17,6 +19,7 @@
 - type: erpOrganVisual
   id: BreastsMoth
   slot: breasts
+  drawOrder: 10
   species: [Moth]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/moth.rsi
   stateMode: SizeIndexed
@@ -25,6 +28,7 @@
 - type: erpOrganVisual
   id: BreastsTajaran
   slot: breasts
+  drawOrder: 10
   species: [Tajaran]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/tajaran.rsi
   stateMode: SizeIndexed
@@ -33,6 +37,7 @@
 - type: erpOrganVisual
   id: BreastsArachnid
   slot: breasts
+  drawOrder: 10
   species: [Arachnid]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/arachnid.rsi
   stateMode: SizeIndexed
@@ -41,6 +46,7 @@
 - type: erpOrganVisual
   id: BreastsDemon
   slot: breasts
+  drawOrder: 10
   species: [Demon]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/demon.rsi
   stateMode: SizeIndexed
@@ -49,6 +55,7 @@
 - type: erpOrganVisual
   id: BreastsHumanoidXeno
   slot: breasts
+  drawOrder: 10
   species: [HumanoidXeno]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/xenos.rsi
   stateMode: SizeIndexed
@@ -57,6 +64,7 @@
 - type: erpOrganVisual
   id: BreastsChitinid
   slot: breasts
+  drawOrder: 10
   species: [Chitinid]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/chitinid.rsi
   stateMode: SizeIndexed
@@ -65,6 +73,7 @@
 - type: erpOrganVisual
   id: BreastsDiona
   slot: breasts
+  drawOrder: 10
   species: [Diona]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/diona.rsi
   stateMode: SizeIndexed
@@ -73,6 +82,7 @@
 - type: erpOrganVisual
   id: BreastsKobold
   slot: breasts
+  drawOrder: 10
   species: [Kobold]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/kobold.rsi
   stateMode: SizeIndexed
@@ -81,6 +91,7 @@
 - type: erpOrganVisual
   id: BreastsRodentia
   slot: breasts
+  drawOrder: 10
   species: [Rodentia]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/rodentia.rsi
   stateMode: SizeIndexed
@@ -89,6 +100,7 @@
 - type: erpOrganVisual
   id: BreastsSlimePerson
   slot: breasts
+  drawOrder: 10
   species: [SlimePerson]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/slime.rsi
   stateMode: SizeIndexed
@@ -97,6 +109,7 @@
 - type: erpOrganVisual
   id: BreastsVox
   slot: breasts
+  drawOrder: 10
   species: [Vox]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/vox.rsi
   stateMode: SizeIndexed
@@ -105,6 +118,7 @@
 - type: erpOrganVisual
   id: BreastsVulpkanin
   slot: breasts
+  drawOrder: 10
   species: [Vulpkanin]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/vulpkanin.rsi
   stateMode: SizeIndexed
@@ -113,6 +127,7 @@
 - type: erpOrganVisual
   id: BreastsYowie
   slot: breasts
+  drawOrder: 10
   species: [Yowie]
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/yowie.rsi
   stateMode: SizeIndexed
@@ -121,14 +136,24 @@
 - type: erpOrganVisual
   id: BreastsFallback
   slot: breasts
+  drawOrder: 10
   species: []
   rsi: /Textures/_Arcane/ERP/Mobs/Breasts/human.rsi
   stateMode: SizeIndexed
   sizeStates: [aa, b, c, d]
 
 - type: erpOrganVisual
+  id: VaginaFallback
+  slot: vagina
+  drawOrder: 30
+  species: []
+  rsi: /Textures/_Arcane/ERP/Mobs/Vagina/vagina.rsi
+  stateMode: Variant
+
+- type: erpOrganVisual
   id: PenisHuman
   slot: penis
+  drawOrder: 40
   species: [Human, Felinid]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/human.rsi
   stateMode: Arousal
@@ -141,6 +166,7 @@
 - type: erpOrganVisual
   id: PenisDwarf
   slot: penis
+  drawOrder: 40
   species: [Dwarf]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/dwarf.rsi
   stateMode: Arousal
@@ -153,6 +179,7 @@
 - type: erpOrganVisual
   id: PenisReptilian
   slot: penis
+  drawOrder: 40
   species: [Reptilian]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/lizard.rsi
   stateMode: Arousal
@@ -165,6 +192,7 @@
 - type: erpOrganVisual
   id: PenisMoth
   slot: penis
+  drawOrder: 40
   species: [Moth]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/moth.rsi
   stateMode: Arousal
@@ -177,6 +205,7 @@
 - type: erpOrganVisual
   id: PenisTajaran
   slot: penis
+  drawOrder: 40
   species: [Tajaran]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/tajaran.rsi
   stateMode: Arousal
@@ -189,6 +218,7 @@
 - type: erpOrganVisual
   id: PenisArachnid
   slot: penis
+  drawOrder: 40
   species: [Arachnid]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/arachnid.rsi
   stateMode: Arousal
@@ -201,6 +231,7 @@
 - type: erpOrganVisual
   id: PenisDemon
   slot: penis
+  drawOrder: 40
   species: [Demon]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/demon.rsi
   stateMode: Arousal
@@ -213,6 +244,7 @@
 - type: erpOrganVisual
   id: PenisHumanoidXeno
   slot: penis
+  drawOrder: 40
   species: [HumanoidXeno]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/xenos.rsi
   stateMode: SizeIndexedArousal
@@ -222,6 +254,7 @@
 - type: erpOrganVisual
   id: PenisChitinid
   slot: penis
+  drawOrder: 40
   species: [Chitinid]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/chitinid.rsi
   stateMode: Arousal
@@ -234,6 +267,7 @@
 - type: erpOrganVisual
   id: PenisDiona
   slot: penis
+  drawOrder: 40
   species: [Diona]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/diona.rsi
   stateMode: Arousal
@@ -246,6 +280,7 @@
 - type: erpOrganVisual
   id: PenisKobold
   slot: penis
+  drawOrder: 40
   species: [Kobold]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/kobold.rsi
   stateMode: Arousal
@@ -258,6 +293,7 @@
 - type: erpOrganVisual
   id: PenisRodentia
   slot: penis
+  drawOrder: 40
   species: [Rodentia]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/rodentia.rsi
   stateMode: Arousal
@@ -270,6 +306,7 @@
 - type: erpOrganVisual
   id: PenisSlimePerson
   slot: penis
+  drawOrder: 40
   species: [SlimePerson]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/slime.rsi
   stateMode: Arousal
@@ -282,6 +319,7 @@
 - type: erpOrganVisual
   id: PenisVox
   slot: penis
+  drawOrder: 40
   species: [Vox]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/vox.rsi
   stateMode: Arousal
@@ -294,6 +332,7 @@
 - type: erpOrganVisual
   id: PenisVulpkanin
   slot: penis
+  drawOrder: 40
   species: [Vulpkanin]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/vulpkanin.rsi
   stateMode: Arousal
@@ -306,6 +345,7 @@
 - type: erpOrganVisual
   id: PenisYowie
   slot: penis
+  drawOrder: 40
   species: [Yowie]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/yowie.rsi
   stateMode: Arousal
@@ -318,6 +358,7 @@
 - type: erpOrganVisual
   id: PenisHarpy
   slot: penis
+  drawOrder: 40
   species: [Harpy]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/harpy.rsi
   stateMode: Arousal
@@ -330,6 +371,7 @@
 - type: erpOrganVisual
   id: PenisIPC
   slot: penis
+  drawOrder: 40
   species: [IPC]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/ipc.rsi
   stateMode: Arousal
@@ -342,6 +384,7 @@
 - type: erpOrganVisual
   id: PenisResomi
   slot: penis
+  drawOrder: 40
   species: [Resomi]
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/resomi.rsi
   stateMode: Arousal
@@ -354,6 +397,7 @@
 - type: erpOrganVisual
   id: PenisFallback
   slot: penis
+  drawOrder: 40
   species: []
   rsi: /Textures/_Arcane/ERP/Mobs/Penis/human.rsi
   stateMode: Arousal

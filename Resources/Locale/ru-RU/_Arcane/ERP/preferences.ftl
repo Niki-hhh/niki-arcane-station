@@ -22,11 +22,8 @@ erp-preferences-tab-variant-thick = Толстый
 
 # Варианты вагины
 erp-preferences-tab-variant-gaping = Растянутая
-erp-preferences-tab-variant-dentata = С зубами
 erp-preferences-tab-variant-hairy = Волосатая
-erp-preferences-tab-variant-furred = Покрытая мехом
 erp-preferences-tab-variant-spade = Лопатовидная
-erp-preferences-tab-variant-cloaca = Клоака
 
 # Варианты груди
 erp-preferences-tab-variant-pair = Пара

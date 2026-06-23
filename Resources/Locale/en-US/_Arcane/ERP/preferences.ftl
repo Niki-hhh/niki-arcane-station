@@ -22,11 +22,8 @@ erp-preferences-tab-variant-thick = Thick
 
 # Vagina variants
 erp-preferences-tab-variant-gaping = Gaping
-erp-preferences-tab-variant-dentata = Dentata
 erp-preferences-tab-variant-hairy = Hairy
-erp-preferences-tab-variant-furred = Furred
 erp-preferences-tab-variant-spade = Spade
-erp-preferences-tab-variant-cloaca = Cloaca
 
 # Breasts count variants
 erp-preferences-tab-variant-pair = Pair

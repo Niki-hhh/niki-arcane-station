@@ -10,6 +10,7 @@ namespace Content.Client._Arcane.ERP.UI;
 public sealed class ErpOrganSection : BoxContainer
 {
     private ErpOrganPreferences _prefs = ErpOrganPreferences.Default();
+    private string _species = string.Empty;
     private bool _settingPreferences;
 
     private readonly Dictionary<string, OrganControls> _organControls = new();
@@ -33,7 +34,7 @@ public sealed class ErpOrganSection : BoxContainer
             Margin = new Thickness(0, 0, 0, 2),
         });
 
-        foreach (var slotId in ErpOrganSlots.All)
+        foreach (var slotId in ErpOrganSlots.EditorVisible)
         {
             var container = new BoxContainer
             {
@@ -58,9 +59,11 @@ public sealed class ErpOrganSection : BoxContainer
             });
 
             OptionButton? variantBtn = null;
-            if (ErpOrganSlots.Variants.TryGetValue(slotId, out var variants))
+            var variants = Array.Empty<string>();
+            if (ErpOrganSlots.Variants.TryGetValue(slotId, out _))
             {
                 variantBtn = new OptionButton { MinWidth = 120 };
+                variants = ErpOrganSlots.GetVariantsForSpecies(slotId, _species);
                 foreach (var v in variants)
                     variantBtn.AddItem(Loc.GetString($"erp-preferences-tab-variant-{v}"), variantBtn.ItemCount);
 
@@ -142,7 +145,24 @@ public sealed class ErpOrganSection : BoxContainer
             container.AddChild(colorSelector);
             AddChild(container);
 
-            _organControls[slotId] = new OrganControls(container, variantBtn, sizeSlider, skinCheck, colorSelector);
+            _organControls[slotId] = new OrganControls(container, variantBtn, sizeSlider, skinCheck, colorSelector, variants);
+        }
+    }
+
+    public void SetSpecies(string species)
+    {
+        _species = species;
+        _settingPreferences = true;
+        try
+        {
+            foreach (var (slotId, ctrl) in _organControls)
+            {
+                RefreshVariantOptions(slotId, ctrl, _prefs.GetOrgan(slotId).Variant);
+            }
+        }
+        finally
+        {
+            _settingPreferences = false;
         }
     }
 
@@ -162,7 +182,7 @@ public sealed class ErpOrganSection : BoxContainer
         {
             _prefs = prefs;
 
-            foreach (var slotId in ErpOrganSlots.All)
+            foreach (var slotId in ErpOrganSlots.EditorVisible)
             {
                 if (!_organControls.TryGetValue(slotId, out var ctrl))
                     continue;
@@ -171,9 +191,7 @@ public sealed class ErpOrganSection : BoxContainer
 
                 if (ctrl.Variant != null)
                 {
-                    var variants = ErpOrganSlots.Variants.TryGetValue(slotId, out var v) ? v : [];
-                    var idx = Array.IndexOf(variants, cfg.Variant);
-                    ctrl.Variant.SelectId(idx >= 0 ? idx : 0);
+                    RefreshVariantOptions(slotId, ctrl, cfg.Variant);
                 }
 
                 if (ctrl.Size != null)
@@ -200,7 +218,7 @@ public sealed class ErpOrganSection : BoxContainer
         if (!_organControls.TryGetValue(slotId, out var ctrl))
             return;
 
-        var variants = ErpOrganSlots.Variants.TryGetValue(slotId, out var v) ? v : [];
+        var variants = ctrl.Variants;
         var variantIdx = ctrl.Variant?.SelectedId ?? 0;
         var variant = variantIdx < variants.Length ? variants[variantIdx] : "human";
 
@@ -211,6 +229,28 @@ public sealed class ErpOrganSection : BoxContainer
         OnPreferencesChanged?.Invoke(_prefs);
     }
 
+    private void RefreshVariantOptions(string slotId, OrganControls ctrl, string selectedVariant)
+    {
+        if (ctrl.Variant == null)
+            return;
+
+        var variants = ErpOrganSlots.GetVariantsForSpecies(slotId, _species);
+        ctrl.Variants = variants;
+
+        ctrl.Variant.Clear();
+        foreach (var variant in variants)
+            ctrl.Variant.AddItem(Loc.GetString($"erp-preferences-tab-variant-{variant}"), ctrl.Variant.ItemCount);
+
+        var idx = Array.IndexOf(variants, selectedVariant);
+        ctrl.Variant.SelectId(idx >= 0 ? idx : 0);
+
+        if (idx < 0 && variants.Length > 0)
+        {
+            var cfg = _prefs.GetOrgan(slotId);
+            _prefs.SetOrgan(slotId, new ErpOrganConfig { Variant = variants[0], Size = cfg.Size, Color = cfg.Color });
+        }
+    }
+
     private sealed class OrganControls
     {
         public readonly BoxContainer Container;
@@ -218,15 +258,17 @@ public sealed class ErpOrganSection : BoxContainer
         public readonly Slider? Size;
         public readonly CheckBox SkinCheck;
         public readonly ColorSelectorSliders ColorSelector;
+        public string[] Variants;
 
         public OrganControls(BoxContainer container, OptionButton? variant, Slider? size,
-            CheckBox skinCheck, ColorSelectorSliders colorSelector)
+            CheckBox skinCheck, ColorSelectorSliders colorSelector, string[] variants)
         {
             Container = container;
             Variant = variant;
             Size = size;
             SkinCheck = skinCheck;
             ColorSelector = colorSelector;
+            Variants = variants;
         }
     }
 }

@@ -26,6 +26,9 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
     private readonly Dictionary<string, ErpOrganVisualPrototype> _fallbackLookup = new();
     // slot → layer key ("erp_{slot}"); derived from prototypes so new slots need no C#.
     private readonly Dictionary<string, string> _slotToLayerKey = new();
+    // slot -> sprite draw order; lower values render below higher values.
+    private readonly Dictionary<string, int> _slotDrawOrder = new();
+    private readonly List<string> _orderedSlots = new();
 
     // First clothing layer key in the humanoid sprite stack — organ layers insert before it.
     private const string FirstClothingLayer = "underwear";
@@ -55,10 +58,15 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
         _speciesLookup.Clear();
         _fallbackLookup.Clear();
         _slotToLayerKey.Clear();
+        _slotDrawOrder.Clear();
+        _orderedSlots.Clear();
 
         foreach (var proto in _proto.EnumeratePrototypes<ErpOrganVisualPrototype>())
         {
             _slotToLayerKey.TryAdd(proto.Slot, proto.LayerKey);
+            _slotDrawOrder.TryAdd(proto.Slot, proto.DrawOrder);
+            if (!_orderedSlots.Contains(proto.Slot))
+                _orderedSlots.Add(proto.Slot);
 
             if (proto.Species.Count == 0)
                 _fallbackLookup[proto.Slot] = proto;
@@ -66,6 +74,8 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
                 foreach (var species in proto.Species)
                     _speciesLookup[(proto.Slot, species)] = proto;
         }
+
+        _orderedSlots.Sort(CompareSlotsByDrawOrder);
     }
 
     private ErpOrganVisualPrototype? GetProto(string slot, string species)
@@ -180,7 +190,10 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
         var phase   = CompOrNull<ArousalComponent>(ent)?.CurrentPhase ?? ArousalPhase.Calm;
         var species = humanoid?.Species ?? string.Empty;
 
-        foreach (var slotId in ErpOrganSlots.All)
+        if (!OrganLayerOrderMatches(ent, sprite))
+            RemoveOrganLayers(ent, sprite);
+
+        foreach (var slotId in _orderedSlots)
         {
             if (!_slotToLayerKey.TryGetValue(slotId, out var layerKey))
                 continue;
@@ -211,14 +224,10 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
 
             if (!_sprite.LayerMapTryGet((ent, sprite), layerKey, out var index, false))
             {
-                int? insertIdx = null;
-                if (_sprite.LayerMapTryGet((ent, sprite), FirstClothingLayer, out var clothingIdx, false))
-                    insertIdx = clothingIdx;
-
                 index = _sprite.AddLayer(
                     (ent, sprite),
                     new SpriteSpecifier.Rsi(new ResPath(rsiPath), stateName),
-                    insertIdx);
+                    GetOrganLayerInsertIndex(ent, sprite, slotId));
                 _sprite.LayerMapSet((ent, sprite), layerKey, index);
             }
 
@@ -228,6 +237,91 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
             _sprite.LayerSetVisible((ent, sprite), index, visible);
         }
     }
+
+    private int? GetOrganLayerInsertIndex(Entity<ErpOrganVisualsComponent> ent, SpriteComponent sprite, string slotId)
+    {
+        var insertIdx = _sprite.LayerMapTryGet((ent, sprite), FirstClothingLayer, out var clothingIdx, false)
+            ? clothingIdx
+            : (int?) null;
+
+        var reachedSlot = false;
+        foreach (var otherSlot in _orderedSlots)
+        {
+            if (otherSlot == slotId)
+            {
+                reachedSlot = true;
+                continue;
+            }
+
+            if (!_slotToLayerKey.TryGetValue(otherSlot, out var otherLayerKey))
+                continue;
+
+            if (!_sprite.LayerMapTryGet((ent, sprite), otherLayerKey, out var otherIdx, false))
+                continue;
+
+            if (!reachedSlot)
+            {
+                insertIdx = otherIdx + 1;
+                continue;
+            }
+
+            return insertIdx.HasValue
+                ? Math.Min(insertIdx.Value, otherIdx)
+                : otherIdx;
+        }
+
+        return insertIdx;
+    }
+
+    private bool OrganLayerOrderMatches(Entity<ErpOrganVisualsComponent> ent, SpriteComponent sprite)
+    {
+        var previousIdx = -1;
+        var clothingLayer = _sprite.LayerMapTryGet((ent, sprite), FirstClothingLayer, out var clothingIdx, false)
+            ? clothingIdx
+            : (int?) null;
+
+        foreach (var slotId in _orderedSlots)
+        {
+            if (!_slotToLayerKey.TryGetValue(slotId, out var layerKey))
+                continue;
+
+            if (!_sprite.LayerMapTryGet((ent, sprite), layerKey, out var index, false))
+                continue;
+
+            if (clothingLayer != null && index >= clothingLayer)
+                return false;
+
+            if (index < previousIdx)
+                return false;
+
+            previousIdx = index;
+        }
+
+        return true;
+    }
+
+    private void RemoveOrganLayers(Entity<ErpOrganVisualsComponent> ent, SpriteComponent sprite)
+    {
+        foreach (var layerKey in _slotToLayerKey.Values)
+        {
+            if (!_sprite.LayerMapTryGet((ent, sprite), layerKey, out var index, false))
+                continue;
+
+            _sprite.LayerSetVisible((ent, sprite), index, false);
+            _sprite.RemoveLayer((ent, sprite), index);
+        }
+    }
+
+    private int CompareSlotsByDrawOrder(string left, string right)
+    {
+        var orderCompare = GetDrawOrder(left).CompareTo(GetDrawOrder(right));
+        return orderCompare != 0
+            ? orderCompare
+            : string.CompareOrdinal(left, right);
+    }
+
+    private int GetDrawOrder(string slotId)
+        => _slotDrawOrder.TryGetValue(slotId, out var order) ? order : 0;
 
     private static string ResolveStateName(ErpOrganVisualPrototype proto, ErpOrganConfig cfg, ArousalPhase phase)
     {

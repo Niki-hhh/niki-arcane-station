@@ -48,6 +48,10 @@ public sealed class ErpOrganVisualPrototype : IPrototype
     [DataField]
     public ErpStateMode StateMode = ErpStateMode.Variant;
 
+    /// <summary>Lower values render below higher values for organ layers on the humanoid sprite.</summary>
+    [DataField]
+    public int DrawOrder;
+
     /// <summary>Ordered state names for SizeIndexed mode. Index = cfg.Size - 1, clamped.</summary>
     [DataField]
     public List<string> SizeStates = [];

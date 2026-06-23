@@ -910,6 +910,7 @@ namespace Content.Client.Lobby.UI
             if (_erpOrganSection == null || Profile == null)
                 return;
 
+            _erpOrganSection.SetSpecies(Profile.Species);
             _erpOrganSection.SetSex(Profile.Sex);
             _erpOrganSection.SetPreferences(_erpOrganPrefs);
         }
