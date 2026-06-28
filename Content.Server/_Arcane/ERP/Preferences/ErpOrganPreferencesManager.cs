@@ -147,7 +147,7 @@ public sealed class ErpOrganPreferencesManager : IPostInjectInit
             _lastSave[key] = now;
         }
 
-        SaveAsync(session.UserId, slot, prefs);
+        _ = SaveAsync(session.UserId, slot, prefs);
     }
 
     private void QueuePendingSave((NetUserId UserId, int Slot) key, ErpOrganPreferences prefs, TimeSpan delay)
@@ -186,7 +186,7 @@ public sealed class ErpOrganPreferencesManager : IPostInjectInit
         token.Dispose();
 
         if (prefs != null)
-            SaveAsync(key.UserId, key.Slot, prefs);
+            await SaveAsync(key.UserId, key.Slot, prefs);
     }
 
     private void FlushPendingSaves(NetUserId userId)
@@ -217,7 +217,7 @@ public sealed class ErpOrganPreferencesManager : IPostInjectInit
         }
 
         foreach (var (key, prefs) in toSave)
-            SaveAsync(key.UserId, key.Slot, prefs);
+            SaveAsync(key.UserId, key.Slot, prefs).GetAwaiter().GetResult();
     }
 
     private void CancelPendingSave((NetUserId UserId, int Slot) key)
@@ -253,7 +253,7 @@ public sealed class ErpOrganPreferencesManager : IPostInjectInit
         return (null, Sex.Male);
     }
 
-    private async void SaveAsync(NetUserId userId, int slot, ErpOrganPreferences prefs)
+    private async Task SaveAsync(NetUserId userId, int slot, ErpOrganPreferences prefs)
     {
         try
         {
