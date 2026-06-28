@@ -193,6 +193,19 @@
     Peak: aroused
 
 - type: erpOrganVisual
+  id: PenisHydrakin
+  slot: penis
+  drawOrder: 40
+  species: [Hydrakin]
+  rsi: /Textures/_Arcane/ERP/Mobs/Penis/lizard.rsi
+  stateMode: Arousal
+  flaccidState: flaccid
+  arousalStates:
+    Aroused: aroused
+    Heated: aroused
+    Peak: aroused
+
+- type: erpOrganVisual
   id: PenisMoth
   slot: penis
   drawOrder: 40

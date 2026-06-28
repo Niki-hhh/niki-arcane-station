@@ -10,6 +10,7 @@ using Content.Shared.Clothing.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Robust.Client.GameObjects;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -22,6 +23,7 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
     [Dependency] private readonly ClientErpOrganPreferencesManager _erpPrefs = default!;
     [Dependency] private readonly IClientPreferencesManager _prefs = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
 
     private const SlotFlags GroinCovering = SlotFlags.INNERCLOTHING | SlotFlags.OUTERCLOTHING | SlotFlags.LEGS | SlotFlags.UNDERWEAR;
@@ -102,8 +104,9 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
 
         var humanoid = CompOrNull<HumanoidAppearanceComponent>(uid);
         var visuals = EnsureComp<ErpOrganVisualsComponent>(uid);
-        visuals.Organs = FilterOrgansBySex(prefs.Organs, humanoid?.Sex ?? Sex.Male);
+        visuals.Organs = BuildPreviewOrgans(prefs, humanoid);
         visuals.CoveredSlots = GetPreviewCoveredSlots(uid);
+        visuals.HideWhenFlaccid = GetPreviewHideWhenFlaccid(uid);
 
         ApplyOrganLayers((uid, visuals), humanoid, sprite, phase);
     }
@@ -114,17 +117,42 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
             return;
 
         if (!HasComp<EroticOrgansComponent>(ent))
+        {
+            var disabledVisuals = EnsureComp<ErpOrganVisualsComponent>(ent);
+            disabledVisuals.Organs = [];
+            disabledVisuals.CoveredSlots = [];
+            disabledVisuals.HideWhenFlaccid = [];
+
+            if (TryComp<SpriteComponent>(ent, out var disabledSprite))
+                ApplyOrganLayers((ent, disabledVisuals), ent.Comp, disabledSprite);
+
             return;
+        }
 
         var slot = _previewSlots.TryGetValue(ent, out var s) ? s : (_prefs.Preferences?.SelectedCharacterIndex ?? 0);
         var organPrefs = _erpPrefs.GetSlot(slot);
 
         var visuals = EnsureComp<ErpOrganVisualsComponent>(ent);
-        visuals.Organs = FilterOrgansBySex(organPrefs.Organs, ent.Comp.Sex);
+        visuals.Organs = BuildPreviewOrgans(organPrefs, ent.Comp);
         visuals.CoveredSlots = GetPreviewCoveredSlots(ent);
+        visuals.HideWhenFlaccid = GetPreviewHideWhenFlaccid(ent);
 
         if (TryComp<SpriteComponent>(ent, out var sprite))
             ApplyOrganLayers((ent, visuals), ent.Comp, sprite);
+    }
+
+    private Dictionary<string, ErpOrganConfig> BuildPreviewOrgans(
+        ErpOrganPreferences prefs,
+        HumanoidAppearanceComponent? humanoid)
+    {
+        var sex = humanoid?.Sex ?? Sex.Male;
+        var definitions = ErpOrganEditorDefinitions.GetForSpecies(humanoid?.Species, sex, _proto, _componentFactory);
+        var normalized = ErpOrganPreferencesNormalizer.Normalize(prefs, definitions);
+
+        foreach (var definition in definitions)
+            normalized.Organs.TryAdd(definition.SlotId, ErpOrganEditorDefinitions.CreateDefaultConfig(definition));
+
+        return FilterOrgansBySex(normalized.Organs, sex);
     }
 
     private static Dictionary<string, ErpOrganConfig> FilterOrgansBySex(
@@ -139,6 +167,9 @@ public sealed class ErpOrganVisualsSystem : EntitySystem
         }
         return result;
     }
+
+    private HashSet<string> GetPreviewHideWhenFlaccid(EntityUid uid)
+        => TryComp<EroticOrgansComponent>(uid, out var organs) ? new HashSet<string>(organs.HideWhenFlaccid) : [];
 
     private HashSet<string> GetPreviewCoveredSlots(EntityUid uid)
     {

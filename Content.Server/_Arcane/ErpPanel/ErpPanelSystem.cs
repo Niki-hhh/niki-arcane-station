@@ -56,7 +56,13 @@ public sealed partial class ErpPanelSystem : EntitySystem
 
     private void OnGetVerbs(EntityUid uid, ErpPanelOwnerComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
+        if (!component.Enabled)
+            return;
+
         if (!TryComp<ErpPanelOwnerComponent>(args.User, out var userPanel))
+            return;
+
+        if (!userPanel.Enabled)
             return;
 
         if (!IsValidUI(args.User, args.Target))
@@ -214,7 +220,10 @@ public sealed partial class ErpPanelSystem : EntitySystem
 
     private bool IsValidUI(EntityUid user, EntityUid target)
     {
-        if (!HasComp<ErpPanelOwnerComponent>(user) || !HasComp<ErpPanelOwnerComponent>(target))
+        if (!TryComp<ErpPanelOwnerComponent>(user, out var userPanel) || !userPanel.Enabled)
+            return false;
+
+        if (!TryComp<ErpPanelOwnerComponent>(target, out var targetPanel) || !targetPanel.Enabled)
             return false;
 
         if (!HasComp<ArousalComponent>(user) || !HasComp<ArousalComponent>(target))
@@ -234,10 +243,10 @@ public sealed partial class ErpPanelSystem : EntitySystem
         if (user == target && interaction.SelfMessages.Count == 0 || interaction.Messages.Count == 0)
             return false;
 
-        if (!TryComp<ErpPanelOwnerComponent>(user, out var userPanel))
+        if (!TryComp<ErpPanelOwnerComponent>(user, out var userPanel) || !userPanel.Enabled)
             return false;
 
-        if (!HasComp<ErpPanelOwnerComponent>(target))
+        if (!TryComp<ErpPanelOwnerComponent>(target, out var targetPanel) || !targetPanel.Enabled)
             return false;
 
         if (!HasComp<ArousalComponent>(user) || !HasComp<ArousalComponent>(target))
