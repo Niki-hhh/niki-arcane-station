@@ -29,6 +29,7 @@ using Content.Shared._Arcane.InfinityDorm;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Chat;
+using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
@@ -60,6 +61,7 @@ public sealed partial class InfinityDormSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<InfinityDormTeleporterComponent, InfinityDormTeleportMessage>(HandleTeleporterMessage);
         SubscribeNetworkEvent<RequestDormsAmountEvent>(HandleDormsAmountRequest);
+        SubscribeLocalEvent<RoundStartedEvent>(OnRoundStarted);
 
         Subs.CVar(_cfg, ACCVars.MaxUserInfinityDorms, SetMaxUserDorms, true);
     }
@@ -98,6 +100,11 @@ public sealed partial class InfinityDormSystem : EntitySystem
         }
 
         RaiseNetworkEvent(new UserDormCountMessage(count), eventArgs.SenderSession);
+    }
+
+    private void OnRoundStarted(RoundStartedEvent args)
+    {
+        _dormsMapId = MapId.Nullspace;
     }
 
     private void EnsureDormsMap()
