@@ -300,6 +300,11 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
         if (!_cfg.GetCVar(CCVars.GameRoleTimers))
             return roles;
 
+        // Arcane-sponsor-start
+        if (ArcaneSponsorTiers.HasAllRoles(_linkManager.GetPatron(player)?.Tier?.Tier))
+            return roles;
+        // Arcane-sponsor-end
+
         if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
         {
             Log.Error($"Unable to check playtimes {Environment.StackTrace}");
@@ -321,6 +326,9 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
             return;
 
         var player = _playerManager.GetSessionById(userId);
+        if (player == null || ArcaneSponsorTiers.HasAllRoles(_linkManager.GetPatron(player)?.Tier?.Tier))
+            return;
+
         if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
         {
             // Sorry mate but your playtimes haven't loaded.
