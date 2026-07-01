@@ -167,9 +167,10 @@ public sealed class QueueMiniGameHostControl : BoxContainer
                 2,
                 EffectGain + 0.1f);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             // Audio is optional; if resources are missing, continue silently.
+            Logger.GetSawmill("minigame.audio").Warning($"Failed to load mini-game audio: {ex}");
         }
     }
 
