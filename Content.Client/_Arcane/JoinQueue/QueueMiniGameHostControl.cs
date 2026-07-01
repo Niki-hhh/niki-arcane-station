@@ -314,7 +314,7 @@ public sealed class QueueMiniGameHostControl : BoxContainer
         UpdateButtonState();
     }
 
-    private void ClearCurrentControl()
+    private void ClearCurrentControl(bool orphan = true)
     {
         if (_currentScoreSource != null)
         {
@@ -326,7 +326,8 @@ public sealed class QueueMiniGameHostControl : BoxContainer
         }
 
         _currentBestScore = 0;
-        _currentControl?.Orphan();
+        if (orphan)
+            _currentControl?.Orphan();
         _currentControl = null;
         UpdateHudLabels();
     }
@@ -350,7 +351,7 @@ public sealed class QueueMiniGameHostControl : BoxContainer
 
     protected override void ExitedTree()
     {
-        ClearCurrentControl();
+        ClearCurrentControl(false);
         base.ExitedTree();
         _musicSource?.StopPlaying();
         _musicSource?.Dispose();

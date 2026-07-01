@@ -3,7 +3,7 @@ using Content.Server.Connection;
 using Content.Server.GameTicking;
 using Content.Server.Maps;
 using Content.Shared.CCVar;
-using Content.Shared._Arcane.JoinQueue;
+using Content.Shared._Arcane.JoinQueue; // Arcane-edit
 using Content.Goobstation.Shared.JoinQueue;
 using Prometheus;
 using Robust.Server.Player;
@@ -54,9 +54,9 @@ public sealed class JoinQueueManager : IJoinQueueManager
 
     private readonly List<ICommonSession> _queue = new();
     private readonly List<ICommonSession> _patronQueue = new();
+    // Arcane-edit-start
     private readonly Dictionary<NetUserId, ICommonSession> _queuedSessions = new();
     private readonly Dictionary<NetUserId, Dictionary<QueueMiniGameKind, MiniGameScoreState>> _miniGameScores = new();
-    // Arcane-edit-start
     private readonly Dictionary<NetUserId, string> _miniGamePlayerNames = new();
     private readonly Dictionary<NetUserId, QueueWaitRecord> _queueWaitRecords = new();
     private readonly Dictionary<NetUserId, float> _queueWaitOffsets = new();
@@ -258,6 +258,8 @@ public sealed class JoinQueueManager : IJoinQueueManager
                 return;
             }
         }
+
+        _queueWaitOffsets.Remove(session.UserId); // Arcane-edit
 
         // Arcane-edit-start
         if (isPrivileged && _patreonIsEnabled)
@@ -536,7 +538,10 @@ public sealed class JoinQueueManager : IJoinQueueManager
         }
 
         foreach (var userId in expired)
+        {
             _reservations.Remove(userId);
+            _queueWaitOffsets.Remove(userId); // Arcane-edit
+        }
     }
 
     private void SendToGame(ICommonSession session)
