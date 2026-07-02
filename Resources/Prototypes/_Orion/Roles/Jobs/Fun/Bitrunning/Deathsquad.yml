@@ -6,7 +6,7 @@
     mask: ClothingMaskGasDeathSquad
     suitstorage: OxygenTankFilled
     eyes: ClothingEyesGlassesDeathsquad
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     gloves: ClothingHandsGlovesDeathsquadUnremovable
     outerClothing: ClothingOuterHardsuitDeathsquadUnremovable
     shoes: ClothingShoesBootsMagDeathsquadOn

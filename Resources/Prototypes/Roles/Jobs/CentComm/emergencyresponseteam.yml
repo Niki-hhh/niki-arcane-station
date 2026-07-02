@@ -336,7 +336,7 @@
     back: ClothingBackpackERTEngineer
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     head: ClothingHeadHelmetERTEngineer
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesMeson
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
@@ -364,7 +364,7 @@
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     mask: ClothingMaskGasERT
     eyes: ClothingEyesGlassesMeson
     gloves: ClothingHandsGlovesCombat
@@ -428,7 +428,7 @@
     back: ClothingBackpackERTSecurity
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     head: ClothingHeadHelmetERTSecurity
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
@@ -453,7 +453,7 @@
     back: ClothingBackpackERTSecurity
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     mask: ClothingMaskGasERT
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTSecurity
@@ -539,7 +539,7 @@
     back: ClothingBackpackERTMedical
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     head: ClothingHeadHelmetERTMedic
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesMedSec # Goobstation
     gloves: ClothingHandsGlovesNitrile
     outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
@@ -568,7 +568,7 @@
     back: ClothingBackpackERTMedical
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     mask: ClothingMaskGasERT
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesMedSec # Goobstation
     gloves: ClothingHandsGlovesNitrile
     outerClothing: ClothingOuterHardsuitERTMedical
@@ -629,7 +629,7 @@
     back: ClothingBackpackERTJanitor
     shoes: ClothingShoesGaloshes
     head: ClothingHeadHelmetERTJanitor
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     gloves: ClothingHandsGlovesColorPurple
     outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
     id: ERTJanitorPDA
@@ -652,7 +652,7 @@
     back: ClothingBackpackERTJanitor
     shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
     mask: ClothingMaskGasERT
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     gloves: ClothingHandsGlovesColorPurple
     outerClothing: ClothingOuterHardsuitERTJanitor
     id: ERTJanitorPDA

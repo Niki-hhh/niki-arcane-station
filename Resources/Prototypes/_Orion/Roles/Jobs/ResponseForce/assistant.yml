@@ -34,7 +34,7 @@
     back: ClothingBackpackERTSecurity
     shoes: ClothingShoesBootsMagEmergencyResponseTeam
     head: ClothingHeadHelmetERTSecurity
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     mask: ClothingMaskGas
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesColorYellow

@@ -38,7 +38,7 @@
     jumpsuit: ClothingUniformJumpsuitInteQFormal
     back: ClothingBackpackInteQ
     head: ClothingHeadHelmetSwatInteQ
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     mask: ClothingMaskNeckGaiter
     eyes: ClothingEyesGogglessInteQ
     ears: ClothingHeadsetInteQ
@@ -70,7 +70,7 @@
     jumpsuit: ClothingUniformJumpsuitInteQMedical
     back: ClothingBackpackInteQ
     head: ClothingHeadInteQBeret
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     mask: ClothingMaskBreathMedicalSecurity
     eyes: ClothingEyesHudMedical
     ears: ClothingHeadsetInteQ
@@ -138,7 +138,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitInteQOperative
     back: ClothingBackpackInteQ
-    # neck: ExecutiveIDCard # Arcane-Edit
+#   neck: ExecutiveIDCard # Arcane-Edit
     mask: ClothingMaskNeckGaiter
     eyes: ClothingEyesGogglessInteQ
     ears: ClothingHeadsetAltInteQERT
