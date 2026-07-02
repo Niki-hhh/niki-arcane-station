@@ -51,7 +51,7 @@
     back: ClothingBackpackERTEngineer
     shoes: ClothingShoesBootsMagEmergencyResponseTeam
     head: ClothingHeadHelmetERTEngineer
-#   neck: ExecutiveIDCard # Arcane-Edits
+#   neck: ExecutiveIDCard # Arcane-Edit
     eyes: ClothingEyesGlassesMeson
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTEngineer
