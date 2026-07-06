@@ -201,7 +201,6 @@ marking-AndroidTorsoFemaleBreast = Android, Chest (Breast)
 marking-AndroidTorsoFemaleBigBreast = Android, Chest (BigBreast)
 marking-AndroidTorsoFemaleNoBreast = Android, Chest (NoBreast)
 marking-AndroidTorsoMale = Android, Chest (Male)
-marking-AndroidTorsoSpine = Android, Chest (Reinforced spine)
 marking-AndroidTorsoFemaleSynt = Android, Chest (Imitation, Female)
 marking-AndroidTorsoMaleSynt = Android, Chest (Imitation, Male)
 
@@ -214,16 +213,11 @@ marking-AndroidGroinMale = Android, Groin (Male)
 marking-AndroidGroinFemaleSynt = Android, Groin (Imitation, Female)
 marking-AndroidGroinMaleSynt = Android, Groin (Imitation, Male)
 
-# LED
-marking-AndroidLeds = Android, LED (Standart)
-marking-AndroidLedsLove = Android, LED (Акцент)
-marking-AndroidLedsStripes = Android, LED (Полосы)
-
 # Special
 marking-AndroidCatEars = Android, Cat Ears
 marking-AndroidCatEars-ears_cat_led = LED
 marking-AndroidCatTail = Android, Cat Tail
-marking-AndroidCatEars-cat_tail_led = LED
+marking-AndroidCatTail-cat_tail_led = LED
 
 marking-AndroidDefaultEyes = Android, Eyes
 marking-AndroidDefaultEyes-r_eye = Right eye

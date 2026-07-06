@@ -201,7 +201,6 @@ marking-AndroidTorsoFemaleBreast = Андроид, торс (Средняя гр
 marking-AndroidTorsoFemaleBigBreast = Андроид, торс (Большая грудь)
 marking-AndroidTorsoFemaleNoBreast = Андроид, торс (Без груди)
 marking-AndroidTorsoMale = Андроид, торс (Мужской)
-marking-AndroidTorsoSpine = Андроид, торс (Усиленный позвоночник)
 marking-AndroidTorsoFemaleSynt = Андроид, торс (Имитация, женская)
 marking-AndroidTorsoMaleSynt = Андроид, торс (Имитация, мужская)
 
@@ -214,16 +213,11 @@ marking-AndroidGroinMale = Андроид, пах (Мужской)
 marking-AndroidGroinFemaleSynt = Андроид, пах (Имитация, женская)
 marking-AndroidGroinMaleSynt = Андроид, пах (Имитация, мужская)
 
-# Светодиоды
-marking-AndroidLeds = Андроид, светодиоды (Стандарт)
-marking-AndroidLedsLove = Андроид, светодиоды (Акцент)
-marking-AndroidLedsStripes = Андроид, светодиоды (Полосы)
-
 # Специальные
 marking-AndroidCatEars = Андроид, кошачьи ушки
 marking-AndroidCatEars-ears_cat_led = Светодиоды
 marking-AndroidCatTail = Андроид, кошачий хвост
-marking-AndroidCatEars-cat_tail_led = Светодиоды
+marking-AndroidCatTail-cat_tail_led = Светодиоды
 
 marking-AndroidDefaultEyes = Андроид, глаза
 marking-AndroidDefaultEyes-r_eye = Правый глаз

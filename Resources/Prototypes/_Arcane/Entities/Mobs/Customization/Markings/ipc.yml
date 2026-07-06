@@ -1609,27 +1609,6 @@
     - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
       state: groin_m
 
-# - type: marking
-  # id: AndroidTorsoSpine
-  # bodyPart: Special
-  # markingCategory: Special
-  # speciesRestriction: [IPC]
-  # coloring:
-    # layers:
-      # body_spine:
-        # type:
-          # !type:SimpleColoring
-          # color: "#ffffff"
-      # body_spine_led:
-        # type:
-          # !type:CategoryColoring
-          # category: Special
-  # sprites:
-  # - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
-    # state: body_spine
-  # - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
-    # state: body_spine_led
-
 - type: marking
   id: AndroidTorsoFemaleSynt
   bodyPart: Chest
@@ -1689,48 +1668,6 @@
 #endregion Torso
 
 #region Leds
-
-# - type: marking
-  # id: AndroidLeds
-  # bodyPart: Special
-  # markingCategory: Special
-  # speciesRestriction: [IPC]
-  # coloring:
-    # default:
-      # type:
-        # !type:CategoryColoring
-          # category: Special
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
-      # state: leds
-
-# - type: marking
-  # id: AndroidLedsLove
-  # bodyPart: Special
-  # markingCategory: Special
-  # speciesRestriction: [IPC]
-  # coloring:
-    # default:
-      # type:
-        # !type:CategoryColoring
-          # category: Special
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
-      # state: leds_love
-
-# - type: marking
-  # id: AndroidLedsStripes
-  # bodyPart: Special
-  # markingCategory: Special
-  # speciesRestriction: [IPC]
-  # coloring:
-    # default:
-      # type:
-        # !type:CategoryColoring
-          # category: Special
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android.rsi
-      # state: leds_stripes
 
 - type: marking
   id: AndroidTempleLed
@@ -2064,42 +2001,6 @@
   sprites:
     - sprite: _Arcane/Mobs/Customization/IPC/android_default.rsi
       state: head_f
-
-# - type: marking
-  # id: AndroidDefaultChestF
-  # bodyPart: Chest
-  # markingCategory: Chest
-  # speciesRestriction: [IPC]
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android_default.rsi
-      # state: torso_f
-
-# - type: marking
-  # id: AndroidDefaultChestM
-  # bodyPart: Chest
-  # markingCategory: Chest
-  # speciesRestriction: [IPC]
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android_default.rsi
-      # state: torso_m
-
-# - type: marking
-  # id: AndroidDefaultGroinF
-  # bodyPart: Groin
-  # markingCategory: Groin
-  # speciesRestriction: [IPC]
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android_default.rsi
-      # state: groin_f
-
-# - type: marking
-  # id: AndroidDefaultGroinM
-  # bodyPart: Groin
-  # markingCategory: Groin
-  # speciesRestriction: [IPC]
-  # sprites:
-    # - sprite: _Arcane/Mobs/Customization/IPC/android_default.rsi
-      # state: groin_m
 
 - type: marking
   id: AndroidDefaultRArm
