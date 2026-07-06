@@ -16,9 +16,9 @@
   dollPrototype: MobIPCDummy
   skinColoration: Hues
   minAge: 1
-  maxAge: 240
-  oldAge: 50
-  youngAge: 50
+  maxAge: 1000
+  oldAge: 700
+  youngAge: 350
   maleFirstNames: IpcFirst
   femaleFirstNames: IpcFirst
   lastNames: IpcLast
