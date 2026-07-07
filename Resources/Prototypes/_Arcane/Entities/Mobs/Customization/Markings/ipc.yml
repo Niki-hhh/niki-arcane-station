@@ -14,10 +14,10 @@
   shader: unshaded
 
 - type: marking
-  speciesRestriction: [IPC]
   id: RobotAntennaHoly
   bodyPart: HeadTop
   markingCategory: HeadTop
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _Arcane/Mobs/Customization/IPC/holy_head.rsi
       state: holy_head
